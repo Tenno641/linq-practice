@@ -16,8 +16,6 @@ public class Ordering : QueryRunner
         MultipleOrderBy_F();
         
         OrderByCustomComparer_F();
-        
-        
     }
     
     /// <summary>
@@ -27,8 +25,7 @@ public class Ordering : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var result =
-            from movie in sourceMovies
+        var result = from movie in sourceMovies
             orderby movie.Name
             select movie;
         
@@ -42,10 +39,10 @@ public class Ordering : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var result = 
+        var result =
             from movie in sourceMovies
             orderby movie.Name descending
-                select movie;
+            select movie;
         
         PrintAll(result);
     }
@@ -57,8 +54,8 @@ public class Ordering : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var result = sourceMovies.
-            OrderBy(movie => movie);
+        var result = sourceMovies
+            .OrderBy(movie => movie.Name);
 
         PrintAll(result);
     }
@@ -85,9 +82,9 @@ public class Ordering : QueryRunner
 
         var result =
             from movie in sourceMovies
-            orderby movie.Name, movie.ReleaseDate descending
+            orderby movie.Name, movie.ReleaseDate.Year
             select movie;
-        
+
         PrintAll(result);
     }
     
@@ -100,7 +97,7 @@ public class Ordering : QueryRunner
 
         var result = sourceMovies
             .OrderBy(movie => movie.Name)
-            .ThenByDescending(movie => movie.ReleaseDate);
+            .ThenByDescending(movie => movie.ReleaseDate.Year);
         
         PrintAll(result);
     }
