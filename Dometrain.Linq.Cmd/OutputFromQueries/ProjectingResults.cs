@@ -1,4 +1,3 @@
-// ReSharper disable UnusedMember.Local
 namespace Dometrain.Linq.Cmd.OutputFromQueries;
 
 public class ProjectingResults : QueryRunner
@@ -11,8 +10,8 @@ public class ProjectingResults : QueryRunner
         // SelectAnonymousType_F();
         // ProjectToValueTuple_Q();
         // ProjectToValueTuple_F();
-        // ProjectToOtherType_Q();
-        // ProjectToOtherType_F();
+        ProjectToOtherType_Q();
+        ProjectToOtherType_F();
         // MaterializeProjectedResult_Q();
         MaterializeProjectedResult_Q();
     }
@@ -23,13 +22,12 @@ public class ProjectingResults : QueryRunner
     void SelectSingleProperty_Q()
     {
         var sourceMovies = Repository.GetAllMovies();
-        
-        var query = 
+
+        var result =
             from movie in sourceMovies
-            where movie.Name.StartsWith("Iron Man")
             select movie.Name;
         
-        PrintAll(query);
+        PrintAll(result);
     }
     
     /// <summary>
@@ -38,12 +36,11 @@ public class ProjectingResults : QueryRunner
     void SelectSingleProperty_F()
     {
         var sourceMovies = Repository.GetAllMovies();
-
-        var query = sourceMovies
-            .Where(movie => movie.Name.StartsWith("Iron Man"))
-            .Select(movie => movie.Name);
         
-        PrintAll(query);
+        var result = from movie in sourceMovies
+            select movie.Name;
+        
+        PrintAll(result);
     }
     
     /// <summary>
@@ -52,13 +49,12 @@ public class ProjectingResults : QueryRunner
     void SelectAnonymousType_Q()
     {
         var sourceMovies = Repository.GetAllMovies();
-        
-        var query = 
+
+        var result =
             from movie in sourceMovies
-            where movie.Name.StartsWith("Iron Man")
-            select new { movie.Name, movie.ReleaseDate.Year };
+            select new { Title = movie.Name, Date = movie };
         
-        PrintAll(query);
+        PrintAll(result);
     }
     
     /// <summary>
@@ -68,11 +64,10 @@ public class ProjectingResults : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var query = sourceMovies
-            .Where(movie => movie.Name.StartsWith("Iron Man"))
-            .Select(movie => new { movie.Name, movie.ReleaseDate.Year });
+        var result = sourceMovies
+            .Select(movie => new { Title = movie.Name, Date = movie.ReleaseDate.Year });
         
-        PrintAll(query);
+        PrintAll(result);
     }
     
     /// <summary>
@@ -81,13 +76,12 @@ public class ProjectingResults : QueryRunner
     void ProjectToValueTuple_Q()
     {
         var sourceMovies = Repository.GetAllMovies();
-        
-        var query = 
+
+        var result =
             from movie in sourceMovies
-            where movie.Name.StartsWith("Iron Man")
-            select ( Title: movie.Name, Year: movie.ReleaseDate.Year );
+            select (Title : movie.Name, ReleaseYear : movie.ReleaseDate.Year);
         
-        PrintAll(query);
+        PrintAll(result);
     }
     
     /// <summary>
@@ -97,11 +91,10 @@ public class ProjectingResults : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var query = sourceMovies
-            .Where(movie => movie.Name.StartsWith("Iron Man"))
-            .Select(movie => ( Title: movie.Name, Year: movie.ReleaseDate.Year ));
+        var result = sourceMovies
+            .Select(movie => (Title : movie.Name, ReleaseYear : movie.ReleaseDate.Year));
         
-        PrintAll(query);
+        PrintAll(result);
     }
     
     /// <summary>
@@ -110,13 +103,12 @@ public class ProjectingResults : QueryRunner
     void ProjectToOtherType_Q()
     {
         var sourceMovies = Repository.GetAllMovies();
-        
-        var query = 
+
+        var result =
             from movie in sourceMovies
-            where movie.Name.StartsWith("Iron Man")
             select new MovieTitle(movie.Name, movie.ReleaseDate.Year);
         
-        PrintAll(query);
+        PrintAll(result);
     }
     
     /// <summary>
@@ -126,11 +118,10 @@ public class ProjectingResults : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var query = sourceMovies
-            .Where(movie => movie.Name.StartsWith("Iron Man"))
+        var result = sourceMovies
             .Select(movie => new MovieTitle(movie.Name, movie.ReleaseDate.Year));
         
-        PrintAll(query);
+        PrintAll(result);
     }
 
     /// <summary>
@@ -140,13 +131,11 @@ public class ProjectingResults : QueryRunner
     void MaterializeProjectedResult_Q()
     {
         var sourceMovies = Repository.GetAllMovies();
-        
-        var result = 
+
+        var result =
             (from movie in sourceMovies
-            where movie.Name.StartsWith("Iron Man")
-            select new MovieTitle(movie.Name, movie.ReleaseDate.Year))
-            .ToList();
-        
+                select movie.Name).First();
+            
         PrintAll(result);
     }
     
@@ -159,9 +148,8 @@ public class ProjectingResults : QueryRunner
         var sourceMovies = Repository.GetAllMovies();
 
         var result = sourceMovies
-            .Where(movie => movie.Name.StartsWith("Iron Man"))
-            .Select(movie => new MovieTitle(movie.Name, movie.ReleaseDate.Year))
-            .ToList();
+            .Select(movie => movie.Name)
+            .First();
         
         PrintAll(result);
     }

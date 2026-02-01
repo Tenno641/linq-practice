@@ -86,13 +86,12 @@ public class GetAllResults : QueryRunner
         var query = sourceMovies
             .Where(IsSpiderManMovie);
 
-        var result = query.ToDictionary(
-            movie => movie.MovieId,
-            movie => movie.Name);
+        var result = query
+            .ToDictionary(movie => movie.MovieId, movie => movie.Name);
 
-        foreach (var movieId in result.Keys)
+        foreach (KeyValuePair<Guid, string> item in result)
         {
-            Console.WriteLine(result[movieId]);
+            Console.WriteLine($"{item.Key} - {item.Value}");
         }
     }
     

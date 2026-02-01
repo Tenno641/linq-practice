@@ -1,4 +1,3 @@
-// ReSharper disable UnusedMember.Local
 namespace Dometrain.Linq.Cmd.PartialResults;
 
 public class GroupedResults : QueryRunner
@@ -16,21 +15,6 @@ public class GroupedResults : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var query =
-            from movie in sourceMovies
-            where movie.Producers.Count > 1
-            group movie by movie.Phase into phase
-            where phase.Key > 2
-            select phase;
-
-        foreach (var phase in query)
-        {
-            Console.WriteLine($"PHASE {phase.Key}:");
-            foreach (var movie in phase)
-            {
-                Console.WriteLine(movie);
-            }
-        }
     }
     
     /// <summary>
@@ -40,21 +24,5 @@ public class GroupedResults : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var groupedQuery = sourceMovies
-            .Where(movie => movie.Producers.Count > 1)
-            .GroupBy(
-                movie => movie.Phase,
-                movie => movie)
-            .Where(phase => phase.Key > 2);
-        
-
-        foreach (var phase in groupedQuery)
-        {
-            Console.WriteLine($"Phase {phase.Key}:");
-            foreach (var movie in phase)
-            {
-                Console.WriteLine(movie);
-            }
-        }
     }
 }

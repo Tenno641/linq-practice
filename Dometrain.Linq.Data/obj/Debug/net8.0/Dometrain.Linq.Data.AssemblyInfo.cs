@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Dometrain.Linq.Data")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d4c89e149d5963c3e48971adaed53c221da2aa48")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+729474d006c384a4263d083eb48704fa33086133")]
 [assembly: System.Reflection.AssemblyProductAttribute("Dometrain.Linq.Data")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Dometrain.Linq.Data")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

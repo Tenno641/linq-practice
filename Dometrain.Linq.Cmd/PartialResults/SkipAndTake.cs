@@ -1,4 +1,3 @@
-// ReSharper disable UnusedMember.Local
 namespace Dometrain.Linq.Cmd.PartialResults;
 
 public class SkipAndTake : QueryRunner
@@ -21,14 +20,9 @@ public class SkipAndTake : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var query = 
-            from movie in sourceMovies
-            where movie.Producers.Count > 1
-            select movie;
-
-        var result = query
+        var result = sourceMovies
             .Take(5);
-
+        
         PrintAll(result);
     }
     
@@ -39,14 +33,9 @@ public class SkipAndTake : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var query = 
-            from movie in sourceMovies
-            where movie.Producers.Count > 1
-            select movie;
-
-        var result = query
+        var result = sourceMovies
             .TakeLast(5);
-
+        
         PrintAll(result);
     }
     
@@ -57,13 +46,8 @@ public class SkipAndTake : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var query = 
-            from movie in sourceMovies
-            where movie.Producers.Count > 1
-            select movie;
-
-        var result = query
-            .TakeWhile(movie => movie.Phase <= 3);
+        var result = sourceMovies
+            .TakeWhile(movie => movie.ReleaseDate.Year > 2000);
 
         PrintAll(result);
     }
@@ -75,12 +59,7 @@ public class SkipAndTake : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var query = 
-            from movie in sourceMovies
-            where movie.Producers.Count > 1
-            select movie;
-
-        var result = query
+        var result = sourceMovies
             .Skip(5);
 
         PrintAll(result);
@@ -93,14 +72,9 @@ public class SkipAndTake : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var query = 
-            from movie in sourceMovies
-            where movie.Producers.Count > 1
-            select movie;
-
-        var result = query
+        var result = sourceMovies
             .SkipLast(5);
-
+        
         PrintAll(result);
     }
     
@@ -111,13 +85,8 @@ public class SkipAndTake : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var query = 
-            from movie in sourceMovies
-            where movie.Producers.Count > 1
-            select movie;
-
-        var result = query
-            .SkipWhile(movie => movie.Phase <= 3);
+        var result = sourceMovies
+            .SkipWhile(movie => movie.ReleaseDate.Year < 2000);
 
         PrintAll(result);
     }
@@ -129,14 +98,9 @@ public class SkipAndTake : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var query = 
-            from movie in sourceMovies
-            where movie.Producers.Count > 1
-            select movie;
-
-        var result = query
-            .Skip(10)
-            .Take(5);
+        var result = sourceMovies
+            .Skip(5)
+            .Take(10);
 
         PrintAll(result);
     }

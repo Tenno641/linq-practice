@@ -1,3 +1,5 @@
+using Dometrain.Linq.Data.Models;
+
 namespace Dometrain.Linq.Cmd.PartialResults;
 
 public class ChunkedResult : QueryRunner
@@ -15,21 +17,15 @@ public class ChunkedResult : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var query = 
-            from movie in sourceMovies
-            where movie.Producers.Count > 1
-            select movie;
+        IEnumerable<Movie[]> result = sourceMovies
+            .Chunk(5);
 
-        var chunks = query.Chunk(5);
-
-        foreach (var chunk in chunks)
+        foreach (Movie[] movies in result)
         {
-            Console.WriteLine("CHUNK:");
-            foreach (var movie in chunk)
+            foreach (Movie movie in movies)
             {
                 Console.WriteLine(movie);
             }
-            Console.WriteLine(string.Empty);
         }
     }
     
@@ -40,22 +36,18 @@ public class ChunkedResult : QueryRunner
     {
         var sourceMovies = Repository.GetAllMovies();
 
-        var query = 
-            from movie in sourceMovies
-            where movie.Producers.Count > 1
-            select movie;
+        var result = sourceMovies
+            .Chunk(5)
+            .Select((chunk, index) => new { Movies = chunk, Index = index + 1 });
 
-        var chunks = query.Chunk(5)
-            .Select((chunk, index) => new { Movies = chunk, Number = index + 1 });
-        
-        foreach (var chunk in chunks)
+        foreach (var chunks in result)
         {
-            Console.WriteLine($"CHUNK {chunk.Number}:");
-            foreach (var movie in chunk.Movies)
+            Print($"Chunk {chunks.Index}");
+            foreach (var movie in chunks.Movies)
             {
-                Console.WriteLine(movie);
+                Print(movie); 
             }
-            Console.WriteLine(string.Empty);
+            Console.WriteLine("");
         }
     }
 }

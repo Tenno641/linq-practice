@@ -18,12 +18,9 @@ public class GetSingleItem : QueryRunner
     void GetFirstItem()
     {
         var sourceMovies = Repository.GetAllMovies();
+
+        var result = sourceMovies.First();
         
-        var query = sourceMovies
-            .Where(movie => movie.Name.StartsWith("Spider-Man"));
-
-        var result = query.First();
-
         Print(result);
     }
 
@@ -33,9 +30,8 @@ public class GetSingleItem : QueryRunner
     void GetFirstItemWithPredicate()
     {
         var sourceMovies = Repository.GetAllMovies();
-        
-        var result = sourceMovies
-            .First(movie => movie.Name.StartsWith("Spider-Man"));
+
+        var result = sourceMovies.First(movie => movie.Name.Contains("spider", StringComparison.InvariantCultureIgnoreCase));
 
         Print(result);
     }
@@ -48,9 +44,8 @@ public class GetSingleItem : QueryRunner
     void GetLastItem()
     {
         var sourceMovies = Repository.GetAllMovies();
-        
-        var result = sourceMovies
-            .Last(movie => movie.Name.StartsWith("Spider-Man"));
+
+        var result = sourceMovies.Last();
         
         Print(result);
     }
@@ -61,9 +56,8 @@ public class GetSingleItem : QueryRunner
     void GetFirstItemWithDefault()
     {
         var sourceMovies = Repository.GetAllMovies();
-        
-        var result = sourceMovies
-            .FirstOrDefault(movie => movie.Name.StartsWith("Batman"));
+
+        var result = sourceMovies.FirstOrDefault();
         
         Print(result);
     }
@@ -74,9 +68,8 @@ public class GetSingleItem : QueryRunner
     void ExpectSingleMatch()
     {
         var sourceMovies = Repository.GetAllMovies();
-        
-        var result = sourceMovies
-            .Single(movie => movie.Name.StartsWith("Spider-Man: Homecoming"));
+
+        var result = sourceMovies.Single(movie => movie.Name.Contains("iron-man 2007"));
         
         Print(result);
     }
