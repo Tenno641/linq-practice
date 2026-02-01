@@ -1,7 +1,5 @@
 using Dometrain.Linq.Data.Models;
 
-// ReSharper disable StringLiteralTypo
-
 namespace Dometrain.Linq.Data.Repositories;
 
 public class MarvelMovieRepository
@@ -79,6 +77,14 @@ public class MarvelMovieRepository
         movies.AddRange(_phase4Movies);
         movies.AddRange(_phase5Movies);
         return movies.AsQueryable();
+    }
+
+    public Movie GetByName(string name)
+    {
+        var result = GetAllMovies()
+            .First(movie => movie.Name == name);
+
+        return result;
     }
 
     #region Data
