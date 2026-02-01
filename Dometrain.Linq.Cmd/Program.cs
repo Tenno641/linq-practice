@@ -1,3 +1,4 @@
-﻿using Dometrain.Linq.Cmd._3_FilteringAndOrdering;
+﻿using Dometrain.Linq.Cmd.FilteringAndOrdering;
 
-new WhereConditions().Run();
+// new WhereConditions().Run();
+new Ordering().Run();

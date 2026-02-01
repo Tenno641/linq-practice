@@ -1,7 +1,6 @@
-using System.Runtime.CompilerServices;
 using Dometrain.Linq.Data.Models;
 
-namespace Dometrain.Linq.Cmd._3_FilteringAndOrdering;
+namespace Dometrain.Linq.Cmd.FilteringAndOrdering;
 
 public class WhereConditions : QueryRunner
 {
